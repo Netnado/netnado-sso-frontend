@@ -1,0 +1,14 @@
+CLI Documentation link: https://www.chakra-ui.com/docs/get-started/cli
+
+Components Documentation link: https://www.chakra-ui.com/docs/components
+
+Icon Documentation link: https://react-icons.github.io/react-icons
+
+Chakra UI breakpoints: const breakpoints = {
+  base: "0em", // 0px
+  sm: "30em", // ~480px
+  md: "48em", // ~768px
+  lg: "62em", // ~992px
+  xl: "80em", // ~1280px
+  "2xl": "96em", // ~1536px
+}
