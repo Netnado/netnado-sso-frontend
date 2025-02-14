@@ -6,6 +6,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>Netnado SSO</title>
+      </head>
       <body>
         <Provider>
           {children}
