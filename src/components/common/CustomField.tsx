@@ -1,3 +1,5 @@
+'use client';
+
 import { Field } from '@/components/ui/field';
 import { SizeEnum } from '@/types/size-enum';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -56,8 +58,8 @@ function CustomPasswordInput(props: ICustomInputProps) {
   return (
     <Box position="relative" width="100%">
       <Input type={showPassword ? "text" : type} p={padding} size={size} placeholder={placeholder} _focus={{ borderColor: "border.info" }}
-        {...Object.assign({}, hookFormProps)}
         {...Object.assign({}, styleProps)}
+        {...Object.assign({}, hookFormProps)}
       />
       <Flex position="absolute" top="50%" right="0.125rem" transform="translateY(-50%)">
         <IconButton
@@ -77,8 +79,8 @@ function CustomInput(props: ICustomInputProps) {
   const { type, padding, size, placeholder, hookFormProps, styleProps } = props;
   return (
     <Input type={type} p={padding} size={size} placeholder={placeholder} _focus={{ borderColor: "border.info" }}
-      {...Object.assign({}, hookFormProps)}
       {...Object.assign({}, styleProps)}
+      {...Object.assign({}, hookFormProps)}
     />
   );
 }

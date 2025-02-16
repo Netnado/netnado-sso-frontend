@@ -1,4 +1,9 @@
-import { Provider } from "@/components/ui/provider";
+'use client';
+
+import { Provider as ChakraProvider } from "@/components/ui/provider";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "@/store/store";
+
 import "./globals.css";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -10,9 +15,11 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <title>Netnado SSO</title>
       </head>
       <body>
-        <Provider>
-          {children}
-        </Provider>
+        <ChakraProvider>
+          <ReduxProvider store={store}>
+            {children}
+          </ReduxProvider>
+        </ChakraProvider>
       </body>
     </html>
   );

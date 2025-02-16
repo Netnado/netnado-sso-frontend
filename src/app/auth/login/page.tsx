@@ -1,7 +1,8 @@
 'use client';
+
 import { PASSWORD_REGEX } from '@/helpers/string.helper';
 import { Button, Flex, HStack, IconButton, Mark, Separator, Stack, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import AuthHeader from '@/app/auth/AuthHeader';
 import CustomField from '@/components/common/CustomField';
@@ -9,6 +10,12 @@ import { SizeEnum } from '@/types/size-enum';
 import CustomLink from '@/components/common/CustomLink';
 import CustomCheckbox from '@/components/common/CustomCheckbox';
 import { FcGoogle } from 'react-icons/fc';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { ILoginPayload } from '@/store/account/accountType';
+import { loginCase } from '@/store/account/accountSyncThunk';
+import { Toaster, toaster } from '@/components/ui/toaster';
+import { unwrapResult } from '@reduxjs/toolkit';
+
 export interface ILoginFormProps {
   keyword: string;
   password: string;
@@ -17,18 +24,27 @@ export interface ILoginFormProps {
 
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm<ILoginFormProps>();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const onSubmit = handleSubmit(async (data: unknown) => {
-    setIsSubmitting(true);
+  const { loading: isSubmitting } = useAppSelector(state => state.account);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = handleSubmit(async (data: ILoginPayload) => {
     try {
-      // TODO: Implement login logic
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      window.alert("Login logic is not implemented yet!" + JSON.stringify(data));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsSubmitting(false);
+      const resultAction = await dispatch(loginCase(data));
+      const result = unwrapResult(resultAction);
+
+      toaster.create({
+        type: "success",
+        title: result?.message,
+        duration: 4000,
+      });
+    } catch (rejectedValueOrSerializedError) {
+      const error = rejectedValueOrSerializedError as { message: string };
+      toaster.create({
+        type: "error",
+        title: error?.message,
+        duration: 4000,
+      });
     }
   });
 
@@ -95,11 +111,10 @@ function Login() {
             <FcGoogle />
             <Text>Continue with Google</Text>
           </IconButton>
-
-
         </Stack>
 
       </form>
+      <Toaster />
     </Flex >
   );
 }

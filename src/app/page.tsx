@@ -1,3 +1,5 @@
+'use client';
+
 import HomeHeader from "@/components/common/HomeHeader";
 import { Stack } from "@chakra-ui/react";
 

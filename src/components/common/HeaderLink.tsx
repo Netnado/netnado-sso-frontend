@@ -1,3 +1,5 @@
+'use client';
+
 import { SizeEnum } from '@/types/size-enum';
 import React from 'react';
 import CustomLink from '@/components/common/CustomLink';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Tooltip } from '@/components/ui/tooltip';
 import { evaluatePasswordStrength } from '@/helpers/string.helper';
 import { SizeEnum } from '@/types/size-enum';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex, Image } from '@chakra-ui/react';
 import React from 'react';
 import { ColorModeButton } from '@/components/ui/color-mode';

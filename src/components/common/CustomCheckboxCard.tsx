@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckboxCard } from '@/components/ui/checkbox-card';
 import { CheckboxCardIndicator, Float, Icon } from '@chakra-ui/react';
 import React from 'react';

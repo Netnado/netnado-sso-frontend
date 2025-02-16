@@ -1,3 +1,5 @@
+'use client';
+
 import HeaderLink from '@/components/common/HeaderLink';
 import { ColorModeButton } from '@/components/ui/color-mode';
 import { SizeEnum } from '@/types/size-enum';
