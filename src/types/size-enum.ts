@@ -1,5 +1,16 @@
 export enum SizeEnum {
+  // X3_SMALL = "3xs",
+  X2_SMALL = "2xs",
+  X1_SMALL = "xs",
   SMALL = "sm",
   MEDIUM = "md",
   LARGE = "lg",
+  X1_LARGE = "xl",
+  X2_LARGE = "2xl",
+  // X3_LARGE = "3xl",
+  // X4_LARGE = "4xl",
+  // X5_LARGE = "5xl",
+  // X6_LARGE = "6xl",
+  // X7_LARGE = "7xl",
+  // X8_LARGE = "8xl",
 }

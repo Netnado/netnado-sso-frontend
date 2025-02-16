@@ -1,17 +1,15 @@
-import { Flex, Image, Link as ChakraLink } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 import React from 'react';
 import { ColorModeButton } from '@/components/ui/color-mode';
 import HeaderLink from '@/components/common/HeaderLink';
-import Link from 'next/link';
+import CustomLink from '@/components/common/CustomLink';
 
 function HomeHeader() {
   return (
     <Flex direction={"row"} w={"full"} px={"10"} alignItems={"center"}>
-      <Link href={"/"} passHref style={{ width: "25%" }}>
-        <ChakraLink as={"button"}>
-          <Image src={"/images/logo.png"} alt={"header"} objectFit={"cover"} h={"28"} />
-        </ChakraLink>
-      </Link>
+      <CustomLink href={"/"} parentStyleProps={{ width: "25%" }}>
+        <Image src={"/images/logo.png"} alt={"header"} objectFit={"cover"} h={"28"} />
+      </CustomLink>
 
       <Flex direction={"row"} w={"1/2"} justify={"center"} gap={"2"}>
         <HeaderLink title={"Home"} href={"/"} />

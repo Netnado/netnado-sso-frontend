@@ -1,6 +1,6 @@
 CLI Documentation link: https://www.chakra-ui.com/docs/get-started/cli
 
-Components Documentation link: https://www.chakra-ui.com/docs/components
+Components Documentation link: https://www.chakra-ui.com/docs/components/concepts/overview
 
 Icon Documentation link: https://react-icons.github.io/react-icons
 
