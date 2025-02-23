@@ -1,7 +1,6 @@
 import { IAccountType } from "@/types/account";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addLoginCase } from "@/store/account/accountSyncThunk";
-import { LocalStorageHelper } from "@/helpers/local.storage.helper";
 
 export interface IAccountState { 
   isAuthenticated: boolean;
@@ -18,7 +17,7 @@ const initialAccountState: IAccountState = {
   data: null,
   accessToken: "",
   refreshToken: "",
-  loading: false,
+  loading: true, // Only turn off loading when the local storage is loaded
   error: null,
   message: "",
 }
@@ -27,13 +26,13 @@ export const accountSlice = createSlice({
   name: "account",
   initialState: initialAccountState,
   reducers: {
-    setAccountState: (state, action: PayloadAction<IAccountType>) => {
-      state.data = action.payload;      
+    setAccountState: (state, action: PayloadAction<IAccountType | null>) => {
+      state.data = action.payload;
     },
     setAccountLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setAccountError: (state, action: PayloadAction<number>) => {
+    setAccountError: (state, action: PayloadAction<number | null>) => {
       state.error = action.payload;
     },
     setAccountMessage: (state, action: PayloadAction<string>) => { 
@@ -48,20 +47,19 @@ export const accountSlice = createSlice({
     setRefreshToken: (state, action: PayloadAction<string>) => {
       state.refreshToken = action.payload;
     },
-    loadAccountFromLocalStorage: (state) => {
-      const account = LocalStorageHelper.get<IAccountType>("account");
-      const accessToken = LocalStorageHelper.get<string>("accessToken");
-      if (account && accessToken) {
-        state.data = account;
-        state.isAuthenticated = true;
-        state.accessToken = accessToken ?? "";
-      }
-    },
   },
   extraReducers(builder) {
     addLoginCase(builder);
   },
 })
 
-export const { setAccountState } = accountSlice.actions;
+export const {
+  setAccountState,
+  setAccountLoading,
+  setAccountError,
+  setAccountMessage,
+  setAccountAuthenticated,
+  setAccessToken,
+  setRefreshToken,
+} = accountSlice.actions;
 export const accountReducer = accountSlice.reducer;
