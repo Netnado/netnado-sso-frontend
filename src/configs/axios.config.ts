@@ -1,3 +1,5 @@
+import { LocalStorageHelper } from "@/helpers/local.storage.helper";
+import { IAccountType } from "@/types/account";
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
@@ -12,7 +14,10 @@ const axiosInstance = axios.create({
 
 //REQUEST
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig<unknown>) => {
-  // config.headers.Authorization = `Bearer ${tokenInHeader}`;
+  const accessToken = LocalStorageHelper.get('accessToken') as string;
+  const account = LocalStorageHelper.get('account') as IAccountType;
+  config.headers.authorization = `Bearer ${accessToken}`;
+  config.headers['x-account-id'] = account?.id;
   return config;
 }, (err) => {
   return Promise.reject(err);

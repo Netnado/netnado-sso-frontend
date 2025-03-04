@@ -15,6 +15,7 @@ import { ILoginPayload } from '@/store/account/accountType';
 import { loginCase } from '@/store/account/accountSyncThunk';
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useRouter } from 'next/navigation';
 
 export interface ILoginFormProps {
   keyword: string;
@@ -27,6 +28,7 @@ function Login() {
 
   const { loading: isSubmitting } = useAppSelector(state => state.account);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data: ILoginPayload) => {
     try {
@@ -38,6 +40,8 @@ function Login() {
         title: result?.message,
         duration: 4000,
       });
+
+      router.push('/dashboard');
     } catch (rejectedValueOrSerializedError) {
       const error = rejectedValueOrSerializedError as { message: string };
       toaster.create({

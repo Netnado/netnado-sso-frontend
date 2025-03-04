@@ -1,3 +1,5 @@
+'use client';
+
 import { LocalStorageHelper } from "@/helpers/local.storage.helper";
 import { setAccessToken, setAccountLoading, setAccountState } from "@/store/account/accountSlice";
 import { useAppDispatch } from "@/store/store";

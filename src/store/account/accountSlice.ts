@@ -1,6 +1,6 @@
 import { IAccountType } from "@/types/account";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addLoginCase } from "@/store/account/accountSyncThunk";
+import { addLoginCase, addLogoutCase } from "@/store/account/accountSyncThunk";
 
 export interface IAccountState { 
   isAuthenticated: boolean;
@@ -50,6 +50,7 @@ export const accountSlice = createSlice({
   },
   extraReducers(builder) {
     addLoginCase(builder);
+    addLogoutCase(builder);
   },
 })
 

@@ -1,10 +1,20 @@
 'use client';
 
 import CustomLink from '@/components/common/CustomLink';
-import { useColorMode } from '@/components/ui/color-mode';
+import { useColorModeValue } from '@/components/ui/color-mode';
 import { Flex, IconButton, Image, Separator, Text } from '@chakra-ui/react';
+import { usePathname } from 'next/navigation';
 import React from 'react';
-import { LuHouse, LuIdCard, LuPanelLeftClose, LuSettings2, LuUserCog } from 'react-icons/lu';
+import {
+  LuChartNoAxesCombined,
+  LuChartPie,
+  LuHistory,
+  LuPanelLeftClose,
+  LuReceipt,
+  LuSettings2,
+  LuUserCog,
+  LuWallet,
+} from 'react-icons/lu';
 
 export interface IDashboardPanelProps {
   width?: string;
@@ -26,21 +36,27 @@ const DashboardSectionGroups: DashboardSectionGroupType[] = [
   {
     title: "General",
     items: [
-      { name: "Home", href: "/dashboard/home", icon: <LuHouse /> },
+      { name: "Overview", href: "/dashboard/overview", icon: <LuChartPie /> },
       { name: "Profile", href: "/dashboard/profile", icon: <LuUserCog /> },
+      { name: "Analytics", href: "/dashboard/analytics", icon: <LuChartNoAxesCombined /> },
     ]
   },
   {
     title: "Payments",
     items: [
-      { name: "Payment", href: "/dashboard/payment", icon: <LuIdCard /> },
+      { name: "Payments", href: "/dashboard/payments", icon: <LuWallet /> },
+      { name: "Orders", href: "/dashboard/orders", icon: <LuReceipt /> },
+      { name: "Transactions", href: "/dashboard/transactions", icon: <LuHistory /> },
     ]
   },
 ];
 
 function DashboardPanel(props: IDashboardPanelProps) {
   const { width } = props;
-  const { colorMode } = useColorMode();
+  const iconColor = useColorModeValue("black", "white");
+
+  const pathname = usePathname();
+
 
   return (
     <Flex flexDirection={"column"} width={width ?? "10%"} height={"100%"} justifyContent={"space-between"} alignItems={"center"}
@@ -54,7 +70,7 @@ function DashboardPanel(props: IDashboardPanelProps) {
             </CustomLink>
 
             <IconButton background={"transparent"} rounded={"50%"} title="Close panel" size={"md"} _hover={{ background: "gray.300" }}>
-              <LuPanelLeftClose color={colorMode === "light" ? "black" : "white"} />
+              <LuPanelLeftClose color={iconColor} />
             </IconButton>
           </Flex>
           <Separator orientation={"horizontal"} width={"100%"} height={"2"} />
@@ -62,9 +78,12 @@ function DashboardPanel(props: IDashboardPanelProps) {
 
         {DashboardSectionGroups.map((group, index) => (
           <Flex key={`group-${index}`} flexDirection={"column"} width={"100%"} justifyContent={"start"} alignItems={"start"} paddingX={"5"}>
-            <Text fontSize={"xl"} fontStyle={"italic"} marginX={"2"} color={"gray.focusRing"}>{group.title}</Text>
+            <Text fontSize={"xl"} fontStyle={"italic"} marginX={"2"} color={"gray.fg"}>{group.title}</Text>
             {group.items.map((section: DashboardSectionItemType, index) => (
-              <CustomLink key={`section-${index}`} href={section.href ?? '/dashboard'} styleProps={{ paddingX: "3" }}>
+              <CustomLink key={`section-${index}`} href={section.href ?? '/dashboard'} styleProps={{
+                paddingX: "3", paddingY: "1", color: pathname === section.href ? "blue" : ""
+              }}
+              >
                 {section.icon}
                 <Text fontSize={"lg"} marginX={"2"}>{section.name}</Text>
               </CustomLink>
@@ -75,11 +94,11 @@ function DashboardPanel(props: IDashboardPanelProps) {
       </Flex>
 
       <Flex flexDirection={"column"} width={"100%"} justifyContent={"end"} alignItems={"start"} paddingX={"5"} gap={"1"} marginBottom={"2"}>
-        <CustomLink key={`section-supports`} href={'/dashboard/supports'} styleProps={{ paddingX: "3" }}>
+        <CustomLink key={`section-supports`} href={'/dashboard/supports'} styleProps={{ paddingX: "3", paddingY: "1" }}>
           <LuSettings2 />
           <Text fontSize={"lg"} marginX={"2"}>Supports</Text>
         </CustomLink>
-        <CustomLink key={`section-settings`} href={'/dashboard/settings'} styleProps={{ paddingX: "3" }}>
+        <CustomLink key={`section-settings`} href={'/dashboard/settings'} styleProps={{ paddingX: "3", paddingY: "1" }}>
           <LuSettings2 />
           <Text fontSize={"lg"} marginX={"2"}>Settings</Text>
         </CustomLink>

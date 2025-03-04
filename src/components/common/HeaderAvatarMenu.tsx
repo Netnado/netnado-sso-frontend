@@ -24,10 +24,10 @@ export type HeaderAvatarMenuGroupItemType = HeaderAvatarMenuItemType[];
 
 const headerAvatarMenuItems: HeaderAvatarMenuGroupItemType[] = [
   [
-    { name: "Dashboard", value: "dashboard", href: "/dashboard", icon: <LuLayoutDashboard /> },
+    { name: "Dashboard", value: "dashboard", href: "dashboard", icon: <LuLayoutDashboard /> },
   ],
   [
-    { name: "Logout", value: "logout", href: "/auth/logout", icon: <LuLogOut /> },
+    { name: "Logout", value: "logout", href: "auth/logout", icon: <LuLogOut /> },
   ],
 ];
 
@@ -36,7 +36,7 @@ function HeaderAvatarMenu() {
   const router = useRouter();
 
   function handleMenuItemClick(value: string) {
-    router.push(`/${value}`);
+    router.push(`${value}`);
   };
 
   if (!account || loading === true) {
@@ -62,7 +62,7 @@ function HeaderAvatarMenu() {
         {headerAvatarMenuItems.map((group, index) => (
           <MenuItemGroup key={index}>
             {group.map((item, index) => (
-              <MenuItem key={index} value={item.value} padding="2" cursor={"pointer"} width={"100"} onClick={() => handleMenuItemClick(item.value)}>
+              <MenuItem key={index} value={item.value} padding="2" cursor={"pointer"} width={"100"} onClick={() => handleMenuItemClick(item.href)}>
                 {item.icon}
                 {item.name}
               </MenuItem>
